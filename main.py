@@ -62,7 +62,7 @@ def main():
         st.write(df)  # Muestra los datos cargados en la tabla completa
     
     st.markdown("---")
-    st.markdown("Desarrollado por **Manuel** | PizarraCP © 2024")
+    st.markdown("Desarrollado por **RManuel** | PizarraCP © 2024")
 
 if __name__ == "__main__":
     main()
