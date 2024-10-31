@@ -7,13 +7,14 @@ import os
 st.set_page_config(page_title="PizarraCP - Tablero de Vencimientos", layout="wide")
 
 # Título del Dashboard
-st.title("📊 Pizarra de CredissasasasastoLLLLLL Roger Mu Publico")
+st.title("📊 Pizarra de Créditos Públicos - Roger Mu")
 st.markdown("---")
 
 # URL de Google Drive para el archivo Excel
 URL_DRIVE = 'https://drive.google.com/uc?id=1Yx5VL5_nuGGSK5VRJsOnLPG31OaRsnfh'
 
-# Función para cargar los datos desde un archivo Excel en Google Drive
+# Función para cargar los datos desde un archivo Excel en Google Drive con caché
+@st.cache_data(show_spinner=False)
 def cargar_datos():
     try:
         # Descargar el archivo si no está disponible localmente
@@ -35,31 +36,35 @@ def cargar_datos():
 
 # Función principal para mostrar las secciones
 def main():
+    # Borrar la caché en cada ejecución en fase de desarrollo
+    # Comentar o eliminar esta línea en producción para mejorar el rendimiento
+    st.cache_data.clear()
+
     df = cargar_datos()
     
     # Verifica si se cargaron los datos correctamente
     if df is not None:
         # Mostrar el DataFrame para diagnóstico
+        st.header("📋 Sección 1: Métricas Generales")
         st.write("Contenido del DataFrame:")
-        st.write(df)
+        st.dataframe(df)
         
         # Obtener el valor de la celda A1
         if not df.empty:
             valor_a1 = df.iat[0, 0]  # iat[0, 0] accede a la primera fila y primera columna (celda A1)
-            st.markdown("## 📋 Sección 1: Métricas Generales")
-            st.write(f"Valor en la celda A1: {valor_a1}")  # Muestra el valor de la celda A1
+            st.write(f"Valor en la celda A1: **{valor_a1}**")  # Muestra el valor de la celda A1 en negrita
         else:
             st.warning("El DataFrame está vacío. Verifica que la hoja 'Datos' tenga contenido.")
         
         # Sección 2: Gráficos de Vencimientos
-        st.markdown("## 📊 Sección 2: Gráficos de Vencimientos")
+        st.header("📊 Sección 2: Gráficos de Vencimientos")
         
         # Sección 3: Métricas Generales (otra parte si es necesario)
-        st.markdown("## 📈 Sección 3: Métricas Grales")
+        st.header("📈 Sección 3: Métricas Generales")
         
         # Sección 4: Datos Completos
-        st.markdown("## 🗂 Sección 4: Datos Completos")
-        st.write(df)  # Muestra los datos cargados en la tabla completa
+        st.header("🗂 Sección 4: Datos Completos")
+        st.dataframe(df)  # Muestra los datos cargados en la tabla completa
     
     st.markdown("---")
     st.markdown("Desarrollado por **RManuel** | PizarraCP © 2024")
