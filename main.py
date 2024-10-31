@@ -19,6 +19,15 @@ def cargar_datos():
         # Descargar el archivo si no está disponible localmente
         if not os.path.exists("cartera.xlsx"):
             gdown.download(URL_DRIVE, "cartera.xlsx", quiet=False)
+        
+        # Verificar si el archivo fue descargado
+        if os.path.exists("cartera.xlsx"):
+            st.success("Archivo descargado correctamente")
+        else:
+            st.error("Error: El archivo no se descargó")
+            return None
+
+        # Leer el archivo Excel
         return pd.read_excel("cartera.xlsx", sheet_name='Datos')
     except Exception as e:
         st.error(f"Error al cargar el archivo: {e}")
@@ -30,18 +39,23 @@ def main():
     
     # Verifica si se cargaron los datos correctamente
     if df is not None:
+        # Mostrar el DataFrame para diagnóstico
+        st.write("Contenido del DataFrame:")
+        st.write(df)
+        
         # Obtener el valor de la celda A1
-        valor_a1 = df.iat[0, 0]  # iat[0, 0] accede a la primera fila y primera columna (celda A1)
-
-        # Sección 1: Métricas Generales
-        st.markdown("## 📋 Sección 1: Métricas Generales")
-        st.write(f"Valor en la celda A1: {valor_a1}")  # Muestra el valor de la celda A1
+        if not df.empty:
+            valor_a1 = df.iat[0, 0]  # iat[0, 0] accede a la primera fila y primera columna (celda A1)
+            st.markdown("## 📋 Sección 1: Métricas Generales")
+            st.write(f"Valor en la celda A1: {valor_a1}")  # Muestra el valor de la celda A1
+        else:
+            st.warning("El DataFrame está vacío. Verifica que la hoja 'Datos' tenga contenido.")
         
         # Sección 2: Gráficos de Vencimientos
         st.markdown("## 📊 Sección 2: Gráficos de Vencimientos")
         
         # Sección 3: Métricas Generales (otra parte si es necesario)
-        st.markdown("## 📈 Sección 3: Métricas Generales")
+        st.markdown("## 📈 Sección 3: Métricas Grales")
         
         # Sección 4: Datos Completos
         st.markdown("## 🗂 Sección 4: Datos Completos")
