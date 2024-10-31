@@ -27,12 +27,26 @@ def cargar_datos():
 # Función principal para mostrar las secciones
 def main():
     df = cargar_datos()
-    st.markdown("## 📋 Sección 1: Metricas Generales")
-    st.markdown("## 📊 Sección 2: Gráficos de Vencimientos")
-    st.markdown("## 📈 Sección 3: Métricas Generales")
-    st.markdown("## 🗂 Sección 4: Datos Completos")
-    st.write(df)  # Muestra los datos cargados, útil para pruebas
+    
+    # Verifica si se cargaron los datos correctamente
+    if df is not None:
+        # Obtener el valor de la celda A1
+        valor_a1 = df.iat[0, 0]  # iat[0, 0] accede a la primera fila y primera columna (celda A1)
 
+        # Sección 1: Métricas Generales
+        st.markdown("## 📋 Sección 1: Métricas Generales")
+        st.write(f"Valor en la celda A1: {valor_a1}")  # Muestra el valor de la celda A1
+        
+        # Sección 2: Gráficos de Vencimientos
+        st.markdown("## 📊 Sección 2: Gráficos de Vencimientos")
+        
+        # Sección 3: Métricas Generales (otra parte si es necesario)
+        st.markdown("## 📈 Sección 3: Métricas Generales")
+        
+        # Sección 4: Datos Completos
+        st.markdown("## 🗂 Sección 4: Datos Completos")
+        st.write(df)  # Muestra los datos cargados en la tabla completa
+    
     st.markdown("---")
     st.markdown("Desarrollado por **Manuel** | PizarraCP © 2024")
 
