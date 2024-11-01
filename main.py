@@ -7,7 +7,7 @@ import os
 st.set_page_config(page_title="PizarraCP - Tablero de Vencimientos", layout="wide")
 
 # Título del Dashboard
-st.title("📊 Pizarra de Créditos Públicos - Roger Mu")
+st.title("📊 Pizarra de Créditos Públicos - Roger aMu")
 st.markdown("---")
 
 # URL de Google Drive para el archivo Excel
